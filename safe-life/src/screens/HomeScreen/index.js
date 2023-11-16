@@ -2,25 +2,27 @@ import React from 'react';
 import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { useNavigateToScreen } from '../../../utils/navigations';
+import * as Animatable from 'react-native-animatable'
 
 
 const HomeScreen = () => {
-    const navigation = useNavigation() 
+    const navigationScreen = useNavigateToScreen()
     return (
         <View style={styles.container}>
-            <View style={styles.containerTitle}>
+            <Animatable.View animation="slideInDown" style={styles.containerTitle}>
                 <Text style={styles.title}>Welcome to</Text>
                 <Text style={styles.subTitle}>SafeLife</Text>
-            </View>
-            <Image source={require('../../../assets/HomeScreenLogo.png')} />
-            <View style={styles.containerOptions}>
-                <TouchableOpacity style={styles.signUpOption}>
+            </Animatable.View>
+            <Animatable.Image animation="fadeInUp" source={require('../../../assets/HomeScreenLogo.png')} resizeMode='contain'/>
+            <Animatable.View animation="slideInLeft" style={styles.containerOptions}>
+                <TouchableOpacity style={styles.signUpOption} onPress={() => navigationScreen('Sign Up Screen')} >
                     <Text style={styles.textSignUpOption}>Sign Up</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.loginOption}>
+                <TouchableOpacity style={styles.loginOption} onPress={() => navigationScreen('Login Screen')}>
                     <Text style={styles.textLoginOption}>Login</Text>
                 </TouchableOpacity>
-            </View>
+            </Animatable.View>
         </View>
     )
 }
