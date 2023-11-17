@@ -3,9 +3,9 @@ import { TouchableOpacity, View, Text } from 'react-native';
 import styles from './styles';
 
 
-const ModalButton = ({title}) => {
+const ModalButton = ({title, onPress}) => {
   return (
-    <TouchableOpacity style={styles.buttonStyle}>
+    <TouchableOpacity style={styles.buttonStyle} onPress={onPress}>
         <Text style={styles.textStyle}>{title}</Text>
     </TouchableOpacity>
   );
