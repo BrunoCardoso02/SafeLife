@@ -4,7 +4,6 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HeartRateScreen from '../screens/HeartRateScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
-import styles from './styles';
 import { Platform } from 'react-native';
 
 
@@ -17,11 +16,10 @@ const TabBarNavigator = () => {
         screenOptions={{
           tabBarActiveTintColor: "#970AED",
           tabBarInactiveTintColor: "#D5A6F2",
-          tabBarShowLabel: false,
           tabBarStyle: {
             backgroundColor: "#fff",
             position: "absolute",
-            bottom: Platform.OS == "ios" ? 20 : 15,
+            bottom: Platform.OS == "ios" ? 12 : 15,
             left: Platform.OS == "ios" ? 15 : 10,
             right: Platform.OS == "ios" ? 15 : 10,
             alignItems: 'center', 
@@ -35,19 +33,19 @@ const TabBarNavigator = () => {
         }}
       >
         <Tab.Screen
-          name="TabHeartRate"
+          name="Batimentos"
           component={HeartRateScreen}
           options={{
             headerShown: false,
-            tabBarIcon: ({ size, color }) => <Entypo name='bar-graph' size={size} color={color} style={styles.tabBarIconStyle} />,
+            tabBarIcon: ({ size, color }) => <Entypo name='bar-graph' size={size} color={color}/>,
           }}
         />
         <Tab.Screen
-          name="TabNotifications"
+          name="Recomendados"
           component={NotificationsScreen}
           options={{
             headerShown: false,
-            tabBarIcon: ({ size, color }) => <Ionicons name='book' size={size} color={color} style={styles.tabBarIconStyle} />,
+            tabBarIcon: ({ size, color }) => <Ionicons name='book' size={size} color={color}/>,
           }}
         />
       </Tab.Navigator>
