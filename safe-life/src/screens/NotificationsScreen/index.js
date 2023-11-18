@@ -4,7 +4,6 @@ import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 const NotificationsScreen = () => {
-  // Função para gerar uma cor aleatória em formato hexadecimal
   const randomColor = () => {
     return '#' + Math.floor(Math.random()*16777215).toString(16);
   };

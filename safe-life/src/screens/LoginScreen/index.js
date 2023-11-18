@@ -31,7 +31,7 @@ const LoginScreen = () => {
                 <Animatable.View animation="slideInLeft" style={styles.containerOptions}>
                     <ModalInput placeholder={"Email"} secureTextEntry={false} />
                     <ModalInput placeholder={"Senha"} secureTextEntry={true}/>
-                    <ModalButton title={"Login"} />
+                    <ModalButton title={"Login"} onPress={() => navigationScreen("Heart Rate Screen")} />
                 </Animatable.View>
                 <Animatable.View animation="slideInRight" style={styles.containerRedirection}>
                     <Text style={styles.alertLink}>Ainda não possui uma conta?</Text>
