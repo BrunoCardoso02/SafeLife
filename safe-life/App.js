@@ -6,8 +6,10 @@ import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import HeartRateScreen from './src/screens/HeartRateScreen';
-import NotificationsScreen from './src/screens/NotificationsScreen';
+import RecomendationsScreen from './src/screens/RecomendationsScreen';
 import TabBarNavigator from './src/routes';
+import NotificationsScreen from './src/screens/NotificationsScreen';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -22,7 +24,8 @@ export default function App() {
         <Stack.Screen name="Sign Up Screen" component={SignUpScreen} />
         <Stack.Screen name="Login Screen" component={LoginScreen} />
         <Stack.Screen name="Heart Rate Screen" component={TabBarNavigator} />
-        <Stack.Screen name="Notification Screen" component={TabBarNavigator} />
+        <Stack.Screen name="Recomendations Screen" component={TabBarNavigator} />
+        <Stack.Screen name="Notifications Screen" component={TabBarNavigator}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
