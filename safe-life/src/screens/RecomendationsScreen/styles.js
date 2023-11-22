@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 25,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        marginBottom: Platform.OS == "ios" ? 40 : 20
     },
     titleStyle: {
         color: "#970AED",
@@ -39,6 +40,16 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: -10,
         textAlign: "left"
+    },
+    modalDetailArticle: {
+        width: "90%", 
+        marginLeft: 20
+    },
+    titleModalDetailArticle: {
+        color: "#970AED"
+    },
+    modalCloseButton: {
+        color: "#970AED"
     }
 
 })
