@@ -82,7 +82,6 @@ const HeartRateScreen = () => {
     backgroundGradientFrom: '#fff',
     backgroundGradientTo: '#fff',
     color: (opacity = 1) => `rgba(138, 43, 226, ${opacity})`,
-    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
   };
 
   return (
@@ -99,15 +98,16 @@ const HeartRateScreen = () => {
                 }}
                 width={500}
                 height={200}
+                withDots={false}
                 chartConfig={chartConfig}
-                bezier
-                style={{ marginVertical: 8, borderRadius: 16 }}
+                bezier={true}
+                withHorizontalLabels={false}
               />
               <Text style={styles.textDefault}>A frequência cardíaca no momento é:</Text>
               <Text style={{ color: getHeartRateColor(heartRateData[heartRateData.length - 1]?.value), fontSize: 30, marginHorizontal: 110 }}>{heartRateData[heartRateData.length - 1]?.value} BPM</Text>
             </View>
           ) : (
-            <Text style={styles.textDefault}>Você deve ativar o dispositivo antes</Text>
+            <Text style={styles.textDefault}>Clique no botão para ativar o Sensor</Text>
           )}
         </View>
         <TouchableOpacity onPress={handleToggleGenerating} style={styles.button}>

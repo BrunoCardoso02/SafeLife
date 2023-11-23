@@ -28,6 +28,12 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         gap: Platform.OS === "ios" ? 25 : 20,
     },
+    text: {
+        color: "#970AED",
+    },
+    dateText: {
+        color: "#696969"
+    },
     containerRedirection: {
         marginTop: 15,
         display: "flex",

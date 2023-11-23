@@ -30,10 +30,11 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     textDefault: {
-        fontSize: 20
+        fontSize: 20,
+        color: "grey"
     },
     button: {
-        marginTop: 150,
+        marginTop: Platform.OS == "ios" ? 100 : 50,
         backgroundColor: "#970AED",
         width: 250,
         padding: 25,

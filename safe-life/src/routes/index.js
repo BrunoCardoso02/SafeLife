@@ -2,10 +2,10 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Entypo from 'react-native-vector-icons/Entypo'
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import HeartRateScreen from '../screens/HeartRateScreen';
-import RecomendationsScreen from '../screens/RecomendationsScreen';
+import HeartRateScreen from '../screens/HeartRate';
+import RecomendationsScreen from '../screens/Recomendation';
 import { Platform } from 'react-native';
-import NotificationsScreen from '../screens/NotificationsScreen';
+import NotificationsScreen from '../screens/Notification';
 
 
 const Tab = createBottomTabNavigator();
