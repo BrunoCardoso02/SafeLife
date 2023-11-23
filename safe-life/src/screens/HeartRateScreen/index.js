@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { LineChart } from 'react-native-chart-kit';
 import styles from './styles';
 
 const HeartRateScreen = () => {
   const [currentDate, setCurrentDate] = useState('');
   const [currentDay, setCurrentDay] = useState('');
-  const [latestHeartRate, setLatestHeartRate] = useState(null);
+  const [heartRateData, setHeartRateData] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
 
   const generateHeartRateData = () => {
     const newHeartRateValue = Math.floor(Math.random() * (180 - 60 + 1)) + 60;
-
-    setLatestHeartRate({value: newHeartRateValue });
+    const timestamp = new Date().getTime();
+  
+    setHeartRateData((prevData) => {
+      const newData = [...prevData, { timestamp, value: newHeartRateValue }];
+      return newData.slice(-10);
+    });
+  
+    setTimeout(generateHeartRateData, 2000);
   };
-
+  
   const startGenerating = () => {
-    setInterval(generateHeartRateData, 2000);
+    generateHeartRateData();
     setIsGenerating(true);
   };
 
-  const stopGenerating = () => {
+  const stopGenerating = (intervalId) => {
+    clearInterval(intervalId);
     setIsGenerating(false);
   };
 
@@ -43,6 +51,15 @@ const HeartRateScreen = () => {
     getCurrentDate();
   }, []);
 
+  useEffect(() => {
+    const intervalId = isGenerating ? startGenerating() : null;
+    return () => {
+      if (intervalId) {
+        stopGenerating(intervalId);
+      }
+    };
+  }, [isGenerating]);
+
   const handleToggleGenerating = () => {
     if (isGenerating) {
       stopGenerating();
@@ -61,6 +78,13 @@ const HeartRateScreen = () => {
     }
   };
 
+  const chartConfig = {
+    backgroundGradientFrom: '#fff',
+    backgroundGradientTo: '#fff',
+    color: (opacity = 1) => `rgba(138, 43, 226, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.titleStyle}>Frequência cardíaca</Text>
@@ -69,8 +93,18 @@ const HeartRateScreen = () => {
         <View style={styles.heartRateContainer}>
           {isGenerating ? (
             <View style={styles.containerFrequency}>
-            <Text style={styles.textDefault}>A frequência cardíaca no momento é:</Text>
-            <Text style={{ color: getHeartRateColor(latestHeartRate?.value), fontSize: 30, marginHorizontal: 110 }}>{latestHeartRate?.value} BPM</Text>
+              <LineChart
+                data={{
+                  datasets: [{ data: heartRateData.map((data) => data.value) }],
+                }}
+                width={500}
+                height={200}
+                chartConfig={chartConfig}
+                bezier
+                style={{ marginVertical: 8, borderRadius: 16 }}
+              />
+              <Text style={styles.textDefault}>A frequência cardíaca no momento é:</Text>
+              <Text style={{ color: getHeartRateColor(heartRateData[heartRateData.length - 1]?.value), fontSize: 30, marginHorizontal: 110 }}>{heartRateData[heartRateData.length - 1]?.value} BPM</Text>
             </View>
           ) : (
             <Text style={styles.textDefault}>Você deve ativar o dispositivo antes</Text>
