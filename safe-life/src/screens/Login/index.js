@@ -7,6 +7,7 @@ import ModalButton from '../../components/ModalButton';
 import { useNavigateToScreen } from '../../../utils/navigations';
 import api from '../../api/api';
 import axios from 'axios';
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 
 
 
@@ -14,8 +15,9 @@ import axios from 'axios';
 const LoginScreen = () => {
     const [text, setText] = React.useState('');
     const [criptographedPassword, setCriptographedPassword] = useState(true);
-    const [email, setEmail] = useState('bruno.cardoso02@outlook.com');
-    const [password, setPassword] = useState('Epx02040')
+    const [email, setEmail] = useState('dragonxdgames@gmail.com');
+    const [password, setPassword] = useState('eusouoadminbitch');
+    const [loading, setLoading] = useState(false)
 
     const navigationScreen = useNavigateToScreen();
 
@@ -27,16 +29,19 @@ const LoginScreen = () => {
         email: email,
         password: password,
     }
-    /*function signIn() {
+    function signIn() {
+        setLoading(true)
         api.post('/account/signin', dados)
         .then(() => {
             console.log("Login efetuado");
             navigationScreen("Heart Rate Screen")
         })
         .catch((err) => {
-            console.log(err)
+            //console.log("Senha inválida", err.message);
+            alert("Dados inválidos");
+            setLoading(false)
         })
-    }*/
+    }
     /*function signIn() {
         fetch('http://rest-api.brazilsouth.azurecontainer.io:8080/account/signin', {
             method: 'POST',
@@ -73,12 +78,13 @@ const LoginScreen = () => {
                 <Animatable.View animation="slideInLeft" style={styles.containerOptions}>
                     <ModalInput placeholder={"Email"} secureTextEntry={false} value={email} onChangeText={text => setEmail(text)} />
                     <ModalInput placeholder={"Senha"} secureTextEntry={true} value={password} onChangeText={text => setPassword(text)}/>
-                    <ModalButton title={"Login"} onPress={() => navigationScreen("Heart Rate Screen")} />
+                    <ModalButton title={ loading ? (<ActivityIndicator animating={loading} color={MD2Colors.white} />) : "Login"} onPress={signIn} />
                 </Animatable.View>
                 <Animatable.View animation="slideInRight" style={styles.containerRedirection}>
                     <Text style={styles.alertLink}>Ainda não possui uma conta?</Text>
                     <TouchableOpacity onPress={() => navigationScreen("Sign Up Screen")}>
                         <Text style={styles.linkRedirection}>Sign Up</Text>
+                        
                     </TouchableOpacity>
                 </Animatable.View>
             </ScrollView>
