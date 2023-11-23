@@ -6,11 +6,7 @@ import ModalInput from '../../components/ModalInput';
 import ModalButton from '../../components/ModalButton';
 import { useNavigateToScreen } from '../../../utils/navigations';
 import api from '../../api/api';
-import axios from 'axios';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
-
-
-
 
 const LoginScreen = () => {
     const [text, setText] = React.useState('');
@@ -37,36 +33,11 @@ const LoginScreen = () => {
             navigationScreen("Heart Rate Screen")
         })
         .catch((err) => {
-            //console.log("Senha inválida", err.message);
             alert("Dados inválidos");
             setLoading(false)
         })
     }
-    /*function signIn() {
-        fetch('http://rest-api.brazilsouth.azurecontainer.io:8080/account/signin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dados),
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erro no servidor. Código de status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Login efetuado", data);
-            
-        })
-        .catch(error => {
-            console.error("Erro durante a requisição:", error.message);
-        });
-    }*/
-    
-    
-    
+  
     return (
         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.container}>
             <ScrollView contentContainerStyle={{ width: "100%", alignItems: "center" }} showsVerticalScrollIndicator={false}>
