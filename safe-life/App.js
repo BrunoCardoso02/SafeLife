@@ -3,13 +3,13 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './src/screens/HomeScreen';
-import LoginScreen from './src/screens/LoginScreen';
-import SignUpScreen from './src/screens/SignUpScreen';
-import HeartRateScreen from './src/screens/HeartRateScreen';
-import RecomendationsScreen from './src/screens/RecomendationsScreen';
+import HomeScreen from './src/screens/Home';
+import LoginScreen from './src/screens/Login';
+import SignUpScreen from './src/screens/SignUp';
+import HeartRateScreen from './src/screens/HeartRate';
+import RecomendationsScreen from './src/screens/Recomendation';
 import TabBarNavigator from './src/routes';
-import NotificationsScreen from './src/screens/NotificationsScreen';
+import NotificationsScreen from './src/screens/Notification';
 import { PaperProvider } from 'react-native-paper';
 
 
