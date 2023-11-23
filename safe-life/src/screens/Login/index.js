@@ -9,17 +9,12 @@ import api from '../../api/api';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 
 const LoginScreen = () => {
-    const [text, setText] = React.useState('');
-    const [criptographedPassword, setCriptographedPassword] = useState(true);
     const [email, setEmail] = useState('dragonxdgames@gmail.com');
     const [password, setPassword] = useState('eusouoadminbitch');
     const [loading, setLoading] = useState(false)
 
     const navigationScreen = useNavigateToScreen();
 
-    function togglePasswordVisibility() {
-        setCriptographedPassword(!criptographedPassword)
-    }
 
     const dados = {
         email: email,
