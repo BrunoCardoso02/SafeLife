@@ -11,34 +11,39 @@ import { AuthContext } from '../../Context/AuthContext';
 import { signin } from '../../../utils/signin';
 
 const LoginScreen = () => {
-    const [email, setEmail] = useState('dragonxdgames@gmail.com');
-    const [password, setPassword] = useState('eusouoadminbitch');
+    const [email, setEmail] = useState('cristina02@gmail.com');
+    const [password, setPassword] = useState('Testandoapi321');
     const [loading, setLoading] = useState(false);
-    const {setToken, setId } = useContext(AuthContext)
+    const { setToken, setId, id, token } = useContext(AuthContext);
 
     const navigationScreen = useNavigateToScreen();
-
-
+    
     const dados = {
         email: email,
-        password: password,
-    }
-    /*function signIn() {
-        setLoading(true)
-        api.apiWithoutAuth.post('/account/signin', dados)
-        .then(() => {
-            console.log("Login efetuado");
-            navigationScreen("Register Child Screen")
-        })
-        .catch((err) => {
-            alert("Dados inválidos");
-            setLoading(false)
-        })
-    }*/
-    const handleSignIn = () => {
-        signin(email, password, setToken, setId, navigationScreen);
+        password: password
     }
 
+    function signIn() {
+        setLoading(true);
+        api.apiWithoutAuth.post('/account/signin', dados)
+            .then((response) => {
+                const token = response.data.token;
+                const id = response.data.accountId
+                //console.log("Login efetuado", token);
+                //console.log("ID", id);
+                setToken(token)
+                setId(id)
+                navigationScreen("Register Child");
+            })
+            .catch((err) => {
+                console.log("Dados inválidos");
+                setLoading(false);
+            });
+    }
+    /*const handleSignIn = async () => {
+         await signin(email, password, setToken, setId, navigationScreen);
+    }*/
+    
   
     return (
         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.container}>
@@ -51,7 +56,7 @@ const LoginScreen = () => {
                 <Animatable.View animation="slideInLeft" style={styles.containerOptions}>
                     <ModalInput placeholder={"Email"} secureTextEntry={false} value={email} onChangeText={text => setEmail(text)} />
                     <ModalInput placeholder={"Senha"} secureTextEntry={true} value={password} onChangeText={text => setPassword(text)}/>
-                    <ModalButton title={ loading ? (<ActivityIndicator animating={loading} color={MD2Colors.white} />) : "Login"} onPress={handleSignIn} />
+                    <ModalButton title={ loading ? (<ActivityIndicator animating={loading} color={MD2Colors.white} />) : "Login"} onPress={signIn} />
                 </Animatable.View>
                 <Animatable.View animation="slideInRight" style={styles.containerRedirection}>
                     <Text style={styles.alertLink}>Ainda não possui uma conta?</Text>
@@ -64,4 +69,4 @@ const LoginScreen = () => {
     )
 }
 
-export default LoginScreen;
+export default LoginScreen

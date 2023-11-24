@@ -33,7 +33,7 @@ export default function App() {
               <Stack.Screen name="Login Screen" component={LoginScreen} />
               <Stack.Screen name="Recomendations Screen" component={TabBarNavigator} />
               <Stack.Screen name="Notifications Screen" component={TabBarNavigator}/>
-              <Stack.Screen name="Register Child Screen" component={TabBarNavigator}/>
+              <Stack.Screen name="Register Child" component={TabBarNavigator}/>
               <Stack.Screen name="Heart Rate Screen" component={HeartRateScreen} />
             </Stack.Navigator>
           </AuthProvider>
