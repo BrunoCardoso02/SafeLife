@@ -32,6 +32,20 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontWeight: "500"
     },
+    listTitleContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    listIconOptions: {
+        marginRight: 20
+    },
+    buttonOption: {
+        width: "100%",
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+    },
     listText: {
         color: "#fff",
     },
