@@ -5,8 +5,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import HeartRateScreen from '../screens/HeartRate';
 import RecomendationsScreen from '../screens/Recomendation';
 import { Platform } from 'react-native';
-import NotificationsScreen from '../screens/Notification';
+import NotificationsScreen from '../screens/Settings';
 import RegisterChild from '../screens/RegisterChild';
+import SettingsScreen from '../screens/Settings';
+import Feather from 'react-native-vector-icons/Feather'
 
 
 const Tab = createBottomTabNavigator();
@@ -51,11 +53,11 @@ const TabBarNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Notificações"
-        component={NotificationsScreen}
+        name="Ajustes"
+        component={SettingsScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ size, color }) => <Ionicons name='notifications' size={size} color={color} />,
+          tabBarIcon: ({ size, color }) => <Feather name='settings' size={size} color={color} />,
         }}
       />
     </Tab.Navigator>

@@ -34,6 +34,7 @@ const LoginScreen = () => {
                 setToken(token)
                 setId(id)
                 navigationScreen("Register Child");
+                setLoading(false)
             })
             .catch((err) => {
                 console.log("Dados inválidos");
