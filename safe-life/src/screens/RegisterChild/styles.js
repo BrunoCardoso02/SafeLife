@@ -49,6 +49,14 @@ const styles = StyleSheet.create({
     listText: {
         color: "#fff",
     },
+    nodataView: {
+        alignItems: "center",
+        marginTop: 300
+    },
+    noDataText: {
+        fontSize: 20,
+        color: "grey"
+    },
     button: {
         backgroundColor: "#D599FA",
         position: "absolute",

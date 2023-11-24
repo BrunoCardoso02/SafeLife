@@ -1,26 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import styles from './styles';
+import { ProjectContext } from '../../Context/ProjectContext';
+import { AuthContext } from '../../Context/AuthContext';
+import api from '../../api/api';
+import { io } from 'socket.io-client';
 
 const HeartRateScreen = () => {
   const [currentDate, setCurrentDate] = useState('');
   const [currentDay, setCurrentDay] = useState('');
   const [heartRateData, setHeartRateData] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const { idProject } = useContext(ProjectContext);
+  const { token } = useContext(AuthContext)
+  const [projectId, setProjectId] = useState(idProject)
+  const [socket, setSocket] = useState(null);
 
   const generateHeartRateData = () => {
     const newHeartRateValue = Math.floor(Math.random() * (180 - 60 + 1)) + 60;
     const timestamp = new Date().getTime();
-  
+
     setHeartRateData((prevData) => {
       const newData = [...prevData, { timestamp, value: newHeartRateValue }];
       return newData.slice(-10);
     });
-  
+
     setTimeout(generateHeartRateData, 2000);
   };
-  
+
   const startGenerating = () => {
     generateHeartRateData();
     setIsGenerating(true);
@@ -60,6 +68,34 @@ const HeartRateScreen = () => {
     };
   }, [isGenerating]);
 
+  useEffect(() => {
+    if (socket) {
+      socket.on('mqtt-heartRate', (message) => {
+        console.log('Received message: ' + message);
+        const newHeartRate = parseFloat(message);
+        
+        setHeartRateData((prevData) => {
+          const newData = [...prevData, { timestamp: new Date().getTime(), value: newHeartRate }];
+          return newData.slice(-10);
+        });
+      });
+
+      socket.on('connect', () => {
+        console.log('Connected');
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Disconnected');
+      });
+    }
+
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  }, [socket]);
+
   const handleToggleGenerating = () => {
     if (isGenerating) {
       stopGenerating();
@@ -78,11 +114,35 @@ const HeartRateScreen = () => {
     }
   };
 
-  const chartConfig = {
-    backgroundGradientFrom: '#fff',
-    backgroundGradientTo: '#fff',
-    color: (opacity = 1) => `rgba(138, 43, 226, ${opacity})`,
-  };
+  function connectSocket() {
+    const newSocket = io('http://rest-api.brazilsouth.azurecontainer.io:8080/ws');
+    setSocket(newSocket);
+  }
+
+  function disconnect() {
+    if (socket) {
+      socket.disconnect();
+    }
+  }
+
+  function getConection() {
+    console.log(projectId)
+    const payload = {
+      projectId: projectId,
+      deviceId: "deviceUID-123"
+    }
+    api.apiWithAuth.post(`/device/connect`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        if (res.status == 200) {
+          console.log("Deu certo!");
+          connectSocket();
+        }
+      })
+  }
 
   return (
     <View style={styles.container}>
@@ -110,8 +170,11 @@ const HeartRateScreen = () => {
             <Text style={styles.textDefault}>Clique no botão para ativar o Sensor</Text>
           )}
         </View>
-        <TouchableOpacity onPress={handleToggleGenerating} style={styles.button}>
+        <TouchableOpacity onPress={getConection} style={styles.button}>
           <Text style={styles.buttonText}>{isGenerating ? 'Desativar' : 'Ativar'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={disconnect} style={styles.button}>
+          <Text style={styles.buttonText}>Desconectar</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

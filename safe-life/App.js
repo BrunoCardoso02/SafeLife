@@ -14,6 +14,7 @@ import NotificationsScreen from './src/screens/Notification';
 import { PaperProvider } from 'react-native-paper';
 import 'react-native-gesture-handler';
 import AuthProvider from './src/Context/AuthContext';
+import ProjectProvider from './src/Context/ProjectContext';
 
 
 
@@ -27,6 +28,7 @@ export default function App() {
       <PaperProvider>
         <NavigationContainer>
           <AuthProvider>
+            <ProjectProvider>
             <Stack.Navigator initialRouteName="Welcome Screen" screenOptions={{ headerShown: false }}>
               <Stack.Screen name="Welcome Screen" component={HomeScreen} />
               <Stack.Screen name="Sign Up Screen" component={SignUpScreen} />
@@ -36,6 +38,7 @@ export default function App() {
               <Stack.Screen name="Register Child" component={TabBarNavigator}/>
               <Stack.Screen name="Heart Rate Screen" component={HeartRateScreen} />
             </Stack.Navigator>
+            </ProjectProvider>
           </AuthProvider>
         </NavigationContainer>
         </PaperProvider>

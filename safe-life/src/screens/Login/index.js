@@ -11,7 +11,7 @@ import { AuthContext } from '../../Context/AuthContext';
 import { signin } from '../../../utils/signin';
 
 const LoginScreen = () => {
-    const [email, setEmail] = useState('cristina02@gmail.com');
+    const [email, setEmail] = useState('camilasilva@gmail.com');
     const [password, setPassword] = useState('Testandoapi321');
     const [loading, setLoading] = useState(false);
     const { setToken, setId, id, token } = useContext(AuthContext);

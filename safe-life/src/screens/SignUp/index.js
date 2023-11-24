@@ -14,8 +14,8 @@ import { Picker, } from '@react-native-picker/picker';
 import api from '../../api/api';
 
 const SignUpScreen = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('camilasilva@gmail.com');
+    const [password, setPassword] = useState('Testandoapi321');
     const [name, setName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
     const [bloodType, setBloodType] = React.useState('A+');
