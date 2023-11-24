@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         height: "70%",
         marginTop: 40,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
 
     },
     containerFrequency: {

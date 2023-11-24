@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, KeyboardAvoidingView, ScrollView, TouchableOpacity, Platform, } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import styles from './styles';
@@ -8,6 +8,10 @@ import { useNavigateToScreen } from '../../../utils/navigations';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { RadioButton } from 'react-native-paper';
 import { signUp } from '../../../utils/signup';
+import { signin } from '../../../utils/signin';
+import { AuthContext } from '../../Context/AuthContext';
+import { Picker, } from '@react-native-picker/picker';
+import api from '../../api/api';
 
 const SignUpScreen = () => {
     const [email, setEmail] = useState('');
@@ -19,12 +23,13 @@ const SignUpScreen = () => {
     const [showDateInput, setShowDateInput] = useState(false);
     const [mode, setMode] = useState('date');
     const [displayDate, setDisplayDate] = useState('');
-
-
+    const { setToken, setId } = useContext(AuthContext);
 
 
 
     const navigationScreen = useNavigateToScreen();
+
+    const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
 
     const onChangeDate = (e, selectedDate) => {
         setShowDateInput(Platform.OS === 'ios' ? true : false);
@@ -38,7 +43,24 @@ const SignUpScreen = () => {
         setMode(modeToShow)
     }
 
-    
+    const dados = {
+        "email": email,
+        "password": password,
+        "fullName": name,
+        "birthDate": dateOfBirth.toISOString().split('T')[0],
+        "bloodType": bloodType,
+        "username": userName
+    }
+
+    function signUp() {
+        api.apiWithoutAuth.post('/account/signup', dados)
+            .then(() => {
+                console.log("Conta criada com sucesso");
+                signin(email, password, setToken, setId, navigationScreen)
+
+            })
+            .catch((err) => console.log(err))
+    }
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={styles.container}>
@@ -49,8 +71,8 @@ const SignUpScreen = () => {
                 </Animatable.View>
                 <Animatable.Image animation="fadeInUp" source={require('../../../assets/SignUpScreenLogo.png')} resizeMode="contain" />
                 <Animatable.View animation="slideInLeft" style={styles.containerOptions}>
-                    <ModalInput placeholder={'Nome Completo'} secureTextEntry={false} value={name} onChangeText={text => setName(text)}/>
-                    <ModalInput placeholder={'Email'} secureTextEntry={false}  value={email} onChangeText={text => setEmail(text)} />
+                    <ModalInput placeholder={'Nome Completo'} secureTextEntry={false} value={name} onChangeText={text => setName(text)} />
+                    <ModalInput placeholder={'Email'} secureTextEntry={false} value={email} onChangeText={text => setEmail(text)} />
                     <TouchableOpacity onPress={() => showMode("date")}>
                         <Text style={styles.text}>Qual sua data de Nascimento?</Text>
                         {Platform.OS == "android" && displayDate && <Text style={styles.dateText}>Data de Nascimento: {displayDate}</Text>}
@@ -64,20 +86,30 @@ const SignUpScreen = () => {
                             />
                         )
                     }
-                    <ModalInput placeholder={'Nickname'} secureTextEntry={false}  value={userName} onChangeText={text => setUserName(text)} />
+                    <ModalInput placeholder={'Nickname'} secureTextEntry={false} value={userName} onChangeText={text => setUserName(text)} />
                     <Text style={styles.text}>Qual seu tipo sanguíneo?</Text>
-                    <RadioButton.Group onValueChange={value => setBloodType(value)} value={bloodType}>
-                        <RadioButton.Item label="A+" value="A+" />
-                        <RadioButton.Item label="A-" value="A-" />
-                        <RadioButton.Item label="B+" value="B+" />
-                        <RadioButton.Item label="B-" value="B-" />
-                        <RadioButton.Item label="AB+" value="AB+" />
-                        <RadioButton.Item label="AB-" value="AB-" />
-                        <RadioButton.Item label="O+" value="O+" />
-                        <RadioButton.Item label="O-" value="O-" />
-                    </RadioButton.Group>
-                    <ModalInput placeholder={'Senha'} secureTextEntry={true}  value={password} onChangeText={text => setPassword(text)} />
-                    <ModalButton title={'Sign Up'} />
+                    {Platform.OS == "ios" ? (
+                        <Picker
+                            selectedValue={bloodType}
+                            onValueChange={setBloodType}
+                        >
+                            {bloodTypes.map(type => (
+                                <Picker.Item key={type} label={type} value={type} />
+                            ))}
+                        </Picker>
+                    ) : (
+                        <Picker
+                            selectedValue={bloodType}
+                            onValueChange={(itemValue, itemIndex) => setBloodType(itemValue)}
+                        >
+                            {bloodTypes.map(type => (
+                                <Picker.Item key={type} label={type} value={type} />
+                            ))}
+                        </Picker>
+                    )}
+
+                    <ModalInput placeholder={'Senha'} secureTextEntry={true} value={password} onChangeText={text => setPassword(text)} />
+                    <ModalButton title={'Sign Up'} onPress={signUp} />
                 </Animatable.View>
                 <Animatable.View animation="slideInRight" style={styles.containerRedirection}>
                     <Text style={styles.alertLink}>Já possui uma conta?</Text>

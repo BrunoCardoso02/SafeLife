@@ -6,6 +6,7 @@ import HeartRateScreen from '../screens/HeartRate';
 import RecomendationsScreen from '../screens/Recomendation';
 import { Platform } from 'react-native';
 import NotificationsScreen from '../screens/Notification';
+import RegisterChild from '../screens/RegisterChild';
 
 
 const Tab = createBottomTabNavigator();
@@ -35,10 +36,10 @@ const TabBarNavigator = () => {
     >
       <Tab.Screen
         name="Batimentos"
-        component={HeartRateScreen}
+        component={RegisterChild}
         options={{
           headerShown: false,
-          tabBarIcon: ({ size, color }) => <Entypo name='bar-graph' size={size} color={color} />,
+          tabBarIcon: ({ size, color }) => <Ionicons name='heart' size={size} color={color} />,
         }}
       />
       <Tab.Screen
