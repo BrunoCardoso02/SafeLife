@@ -10,7 +10,7 @@ import HeartRateScreen from './src/screens/HeartRate';
 import RecomendationsScreen from './src/screens/Recomendation';
 import RegisterChild from './src/screens/RegisterChild';
 import TabBarNavigator from './src/routes';
-import NotificationsScreen from './src/screens/Notification';
+import SettingsScreen from './src/screens/Settings';
 import { PaperProvider } from 'react-native-paper';
 import 'react-native-gesture-handler';
 import AuthProvider from './src/Context/AuthContext';
@@ -34,7 +34,7 @@ export default function App() {
               <Stack.Screen name="Sign Up Screen" component={SignUpScreen} />
               <Stack.Screen name="Login Screen" component={LoginScreen} />
               <Stack.Screen name="Recomendations Screen" component={TabBarNavigator} />
-              <Stack.Screen name="Notifications Screen" component={TabBarNavigator}/>
+              <Stack.Screen name="Settings Screen" component={TabBarNavigator}/>
               <Stack.Screen name="Register Child" component={TabBarNavigator}/>
               <Stack.Screen name="Heart Rate Screen" component={HeartRateScreen} />
             </Stack.Navigator>
