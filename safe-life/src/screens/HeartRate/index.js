@@ -3,6 +3,8 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import styles from './styles';
 import { Appbar } from 'react-native-paper';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useNavigateToScreen} from '../../utils/navigations'
 
 
 const HeartRateScreen = () => {
@@ -11,7 +13,8 @@ const HeartRateScreen = () => {
   const [heartRateData, setHeartRateData] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  
+  const navigationScreen = useNavigateToScreen();
+
 
   const generateHeartRateData = () => {
     const newHeartRateValue = Math.floor(Math.random() * (180 - 60 + 1)) + 60;
@@ -91,6 +94,9 @@ const HeartRateScreen = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={{marginTop: 20}} onPress={() => navigationScreen("Register Child")}>
+        <AntDesign name='arrowleft' size={40} color={'#970AED'}/>
+      </TouchableOpacity>
       <Text style={styles.titleStyle}>Frequência cardíaca</Text>
       <Text style={styles.subtitleDate}>{currentDay + " " + currentDate}</Text>
       <ScrollView contentContainerStyle={styles.containerContent}>

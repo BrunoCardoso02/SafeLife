@@ -14,14 +14,8 @@ const SettingsScreen = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
   const { token, id, setToken } = useContext(AuthContext);
   const [showExitModal, setShowExitModal] = React.useState(false);
-  const [updatedFullName, setUpdatedFullName] = useState('');
-  const [updatedEmail, setUpdatedEmail] = useState('');
-  const [updatedUserName, setUpdatedUserName] = useState('');
-  const [showFormUpdateModal, setShowFormUpdateModal] = React.useState(false);
-  const [editingField, setEditingField] = useState(null);
 
 
   const navigationScreen = useNavigateToScreen();

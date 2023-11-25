@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
         gap: 7
     },
     alertLink: {
-        color: "#696969"
+        color: "#696969",
+        marginBottom: 40
     },
     linkRedirection: {
         color: "#970AED"

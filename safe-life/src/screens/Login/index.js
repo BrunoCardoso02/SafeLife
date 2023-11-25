@@ -11,8 +11,8 @@ import { AuthContext } from '../../Context/AuthContext';
 import { signIn } from '../../utils/signin';
 
 const LoginScreen = () => {
-    const [email, setEmail] = useState('mariliamende@gmail.com');
-    const [password, setPassword] = useState('Testandoapi4321');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const { setToken, setId, id, token } = useContext(AuthContext);
 
@@ -23,30 +23,10 @@ const LoginScreen = () => {
         password: password
     }
 
-    /*function signIn() {
-        setLoading(true);
-        api.apiWithoutAuth.post('/account/signin', dados)
-            .then((response) => {
-                const token = response.data.token;
-                const id = response.data.accountId
-                //console.log("Login efetuado", token);
-                //console.log("ID", id);
-                setToken(token)
-                setId(id)
-                navigationScreen("Register Child");
-                setLoading(false)
-            })
-            .catch((err) => {
-                console.log("Dados inválidos");
-                setLoading(false);
-            });
-    }*/
     const handleLogin = () => {
         signIn(dados, setToken, setId, setLoading, navigationScreen)
     }
-    /*const handleSignIn = async () => {
-         await signin(email, password, setToken, setId, navigationScreen);
-    }*/
+
     
   
     return (

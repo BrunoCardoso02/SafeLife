@@ -15,12 +15,12 @@ import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import { format } from 'date-fns';
 
 const SignUpScreen = () => {
-    const [email, setEmail] = useState('clarasilva@gmail.com');
-    const [password, setPassword] = useState('Testandoapi4321');
-    const [name, setName] = useState('Clara Silva');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
     const [bloodType, setBloodType] = React.useState('A+');
-    const [userName, setUserName] = useState('clarasilva32')
+    const [userName, setUserName] = useState('')
     const [showDateInput, setShowDateInput] = useState(false);
     const [mode, setMode] = useState('date');
     const [displayDate, setDisplayDate] = useState('');
@@ -44,7 +44,6 @@ const SignUpScreen = () => {
             if (dateObject >= minDate && dateObject <= maxDate) {
                 setDateOfBirth(dateObject);
 
-                // Formatar a data para o formato desejado
                 const formattedDate = format(dateObject, 'yyyy-MM-dd');
                 setDisplayDate(formattedDate);
             } else {
@@ -72,7 +71,9 @@ const SignUpScreen = () => {
              .then(() => {
                  console.log("Conta criada com sucesso");
                  signIn(dados, setToken, setId, setLoading, navigationScreen)
- 
+                setEmail('');
+                setPassword('');
+                setFullName('');
              })
              .catch((err) => console.log(err))
     }
