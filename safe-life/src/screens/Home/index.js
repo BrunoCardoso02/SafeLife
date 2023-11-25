@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
-import { useNavigateToScreen } from '../../../utils/navigations';
+import { useNavigateToScreen } from '../../utils/navigations';
 import * as Animatable from 'react-native-animatable'
 
 

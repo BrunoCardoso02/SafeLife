@@ -4,15 +4,14 @@ import * as Animatable from 'react-native-animatable'
 import styles from './styles';
 import ModalInput from '../../components/ModalInput';
 import ModalButton from '../../components/ModalButton';
-import { useNavigateToScreen } from '../../../utils/navigations';
+import { useNavigateToScreen } from '../../utils/navigations';
 import api from '../../api/api';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import { AuthContext } from '../../Context/AuthContext';
-import { signin } from '../../../utils/signin';
 import { signIn } from '../../utils/signin';
 
 const LoginScreen = () => {
-    const [email, setEmail] = useState('marilia@gmail.com');
+    const [email, setEmail] = useState('mariliamende@gmail.com');
     const [password, setPassword] = useState('Testandoapi4321');
     const [loading, setLoading] = useState(false);
     const { setToken, setId, id, token } = useContext(AuthContext);

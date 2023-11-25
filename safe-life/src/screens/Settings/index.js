@@ -6,7 +6,7 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import api from '../../api/api';
 import { AuthContext } from '../../Context/AuthContext';
-import { useNavigateToScreen } from '../../../utils/navigations';
+import { useNavigateToScreen } from '../../utils/navigations';
 import { Button, Dialog, Portal, Title } from 'react-native-paper';
 import axios from 'axios';
 
@@ -28,7 +28,6 @@ const SettingsScreen = () => {
 
   const hideExitModal = () => setShowExitModal(false);
 
-  const hideFormUpdateModal = () => setShowFormUpdateModal(false)
 
 
   function getData() {
@@ -55,9 +54,6 @@ const SettingsScreen = () => {
   }, [])
 
 
-
-
-
   function deleteUser() {
     api.apiWithAuth.delete(`/account/delete?accountId=${id}`, {
       headers: {
@@ -66,7 +62,8 @@ const SettingsScreen = () => {
     })
       .then((res) => {
         console.log("Conta excluída");
-        navigationScreen("Login Screen")
+        navigationScreen("Login Screen");
+        hideExitModal()
       })
       .catch((err) => {
         alert("Erro ao excluir a conta")
@@ -86,36 +83,19 @@ const SettingsScreen = () => {
             <Text style={styles.textDefinition}>Nome completo</Text>
             <View style={styles.containerEdit}>
               <Text>{fullName}</Text>
-              <TouchableOpacity onPress={() => {
-                setEditingField('fullName');
-                setShowFormUpdateModal(true)
-              }}>
-                <MaterialIcons name='edit' size={25} color={"grey"} />
-              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.containerInfoSettings}>
             <Text style={styles.textDefinition}>Email</Text>
             <View style={styles.containerEdit}>
               <Text>{email}</Text>
-              <TouchableOpacity onPress={() => {
-                setEditingField('email');
-                setShowFormUpdateModal(true)
-              }}>
-                <MaterialIcons name='edit' size={25} color={"grey"} />
-              </TouchableOpacity>
+
             </View>
           </View>
           <View style={styles.containerInfoSettings}>
             <Text style={styles.textDefinition}>Username</Text>
             <View style={styles.containerEdit}>
               <Text>{userName}</Text>
-              <TouchableOpacity onPress={() => {
-                setEditingField('userName');
-                setShowFormUpdateModal(true)
-              }}>
-                <MaterialIcons name='edit' size={25} color={"grey"} />
-              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -143,36 +123,6 @@ const SettingsScreen = () => {
                   </TouchableOpacity>
                 </View>
               </Dialog.Actions>
-            </Dialog>
-
-            <Dialog visible={showFormUpdateModal} onDismiss={hideFormUpdateModal}>
-              <Dialog.Title>Editar Informação</Dialog.Title>
-              <Dialog.Content>
-                {editingField === 'fullName' && (
-                  <View>
-                    <TextInput placeholder='Seu nome' value={updatedFullName} onChangeText={(text) => setUpdatedFullName(text)} />
-                    <TouchableOpacity onPress={updateName}>
-                      <Text>Enviar</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-                {editingField === 'email' && (
-                  <View>
-                    <TextInput placeholder='Seu Email' value={updatedEmail} onChangeText={(text) => setUpdatedEmail(text)} />
-                    <TouchableOpacity onPress={updateEmail}>
-                      <Text>Enviar</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-                {editingField === 'userName' && (
-                  <View>
-                    <TextInput placeholder='Seu Email' />
-                    <TouchableOpacity>
-                      <Text>Enviar</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-              </Dialog.Content>
             </Dialog>
 
           </Portal>

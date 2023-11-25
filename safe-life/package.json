@@ -17,6 +17,7 @@
     "@react-navigation/native-stack": "^6.9.17",
     "@shopify/react-native-skia": "0.1.196",
     "axios": "^1.6.2",
+    "date-fns": "^2.30.0",
     "expo": "~49.0.15",
     "expo-build-properties": "~0.8.3",
     "expo-notifications": "~0.20.1",

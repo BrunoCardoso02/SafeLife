@@ -8,7 +8,7 @@ import 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
 import api from '../../api/api';
 import { AuthContext } from '../../Context/AuthContext';
-import { useNavigateToScreen } from '../../../utils/navigations';
+import { useNavigateToScreen } from '../../utils/navigations';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { ProjectContext } from '../../Context/ProjectContext';
 

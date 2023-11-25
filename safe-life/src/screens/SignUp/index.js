@@ -4,24 +4,23 @@ import * as Animatable from 'react-native-animatable';
 import styles from './styles';
 import ModalInput from '../../components/ModalInput';
 import ModalButton from '../../components/ModalButton';
-import { useNavigateToScreen } from '../../../utils/navigations';
+import { useNavigateToScreen } from '../../utils/navigations';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { RadioButton } from 'react-native-paper';
-import { signUp } from '../../../utils/signup';
-import { signin } from '../../../utils/signin';
 import { AuthContext } from '../../Context/AuthContext';
 import { Picker, } from '@react-native-picker/picker';
 import api from '../../api/api';
 import { signIn } from '../../utils/signin';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+import { format } from 'date-fns';
 
 const SignUpScreen = () => {
-    const [email, setEmail] = useState('mariliamende@gmail.com');
+    const [email, setEmail] = useState('clarasilva@gmail.com');
     const [password, setPassword] = useState('Testandoapi4321');
-    const [name, setName] = useState('Marilia Carvalho');
+    const [name, setName] = useState('Clara Silva');
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
     const [bloodType, setBloodType] = React.useState('A+');
-    const [userName, setUserName] = useState('mariliaxp4')
+    const [userName, setUserName] = useState('clarasilva32')
     const [showDateInput, setShowDateInput] = useState(false);
     const [mode, setMode] = useState('date');
     const [displayDate, setDisplayDate] = useState('');
@@ -44,10 +43,12 @@ const SignUpScreen = () => {
 
             if (dateObject >= minDate && dateObject <= maxDate) {
                 setDateOfBirth(dateObject);
-                setDisplayDate(dateObject.toLocaleDateString());
+
+                // Formatar a data para o formato desejado
+                const formattedDate = format(dateObject, 'yyyy-MM-dd');
+                setDisplayDate(formattedDate);
             } else {
                 console.log("Data selecionada fora do intervalo permitido.");
-
             }
         }
     };
@@ -60,7 +61,7 @@ const SignUpScreen = () => {
         "email": email,
         "password": password,
         "fullName": name,
-        "birthDate": dateOfBirth.toISOString().split('T')[0],
+        "birthDate": dateOfBirth instanceof Date ? format(dateOfBirth, 'yyyy-MM-dd') : null,
         "bloodType": bloodType,
         "username": userName
     }
