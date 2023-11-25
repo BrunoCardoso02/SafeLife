@@ -54,47 +54,9 @@ const SettingsScreen = () => {
     getData()
   }, [])
 
-  function updateName() {
-    console.log(token);
-    console.log(id);
-    console.log(updatedFullName)
-
-    api.apiWithAuth.patch(`/account/fullname/change?fullName=${updatedFullName}&accountId=${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((res) => {
-        console.log("Nome alterado");
-        setFullName(updatedFullName);
-        getData()
-      })
-      .catch((err) => {
-        console.log("Deu errooooo", err)
-      })
-
-  }
 
 
-  function updateEmail() {
-    api.apiWithAuth.patch(`/account/fullname/change?fullName=${updatedEmail}&accountId=${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((res) => {
-      console.log("Email alterado");
-      setEmail(updatedEmail)
-      getData()
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
 
-  function updateUsername() {
-
-  }
 
   function deleteUser() {
     api.apiWithAuth.delete(`/account/delete?accountId=${id}`, {

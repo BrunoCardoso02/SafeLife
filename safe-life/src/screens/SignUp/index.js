@@ -91,6 +91,7 @@ const SignUpScreen = () => {
                         <Text style={styles.text}>Qual sua data de Nascimento?</Text>
                         {Platform.OS == "android" && displayDate && <Text style={styles.dateText}>Data de Nascimento: {displayDate}</Text>}
                     </TouchableOpacity>
+                    <Text style={{marginTop: -20, color: "grey"}}>Idade Minima: 10 anos</Text>
                     {
                         showDateInput && (
                             <DateTimePicker
