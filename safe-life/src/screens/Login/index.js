@@ -9,10 +9,11 @@ import api from '../../api/api';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import { AuthContext } from '../../Context/AuthContext';
 import { signin } from '../../../utils/signin';
+import { signIn } from '../../utils/signin';
 
 const LoginScreen = () => {
-    const [email, setEmail] = useState('camilasilva@gmail.com');
-    const [password, setPassword] = useState('Testandoapi321');
+    const [email, setEmail] = useState('marilia@gmail.com');
+    const [password, setPassword] = useState('Testandoapi4321');
     const [loading, setLoading] = useState(false);
     const { setToken, setId, id, token } = useContext(AuthContext);
 
@@ -23,7 +24,7 @@ const LoginScreen = () => {
         password: password
     }
 
-    function signIn() {
+    /*function signIn() {
         setLoading(true);
         api.apiWithoutAuth.post('/account/signin', dados)
             .then((response) => {
@@ -40,6 +41,9 @@ const LoginScreen = () => {
                 console.log("Dados inválidos");
                 setLoading(false);
             });
+    }*/
+    const handleLogin = () => {
+        signIn(dados, setToken, setId, setLoading, navigationScreen)
     }
     /*const handleSignIn = async () => {
          await signin(email, password, setToken, setId, navigationScreen);
@@ -57,7 +61,7 @@ const LoginScreen = () => {
                 <Animatable.View animation="slideInLeft" style={styles.containerOptions}>
                     <ModalInput placeholder={"Email"} secureTextEntry={false} value={email} onChangeText={text => setEmail(text)} />
                     <ModalInput placeholder={"Senha"} secureTextEntry={true} value={password} onChangeText={text => setPassword(text)}/>
-                    <ModalButton title={ loading ? (<ActivityIndicator animating={loading} color={MD2Colors.white} />) : "Login"} onPress={signIn} />
+                    <ModalButton title={ loading ? (<ActivityIndicator animating={loading} color={MD2Colors.white} />) : "Login"} onPress={handleLogin} />
                 </Animatable.View>
                 <Animatable.View animation="slideInRight" style={styles.containerRedirection}>
                     <Text style={styles.alertLink}>Ainda não possui uma conta?</Text>

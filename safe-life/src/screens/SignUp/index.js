@@ -12,30 +12,43 @@ import { signin } from '../../../utils/signin';
 import { AuthContext } from '../../Context/AuthContext';
 import { Picker, } from '@react-native-picker/picker';
 import api from '../../api/api';
+import { signIn } from '../../utils/signin';
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 
 const SignUpScreen = () => {
-    const [email, setEmail] = useState('camilasilva@gmail.com');
-    const [password, setPassword] = useState('Testandoapi321');
-    const [name, setName] = useState('');
+    const [email, setEmail] = useState('mariliamende@gmail.com');
+    const [password, setPassword] = useState('Testandoapi4321');
+    const [name, setName] = useState('Marilia Carvalho');
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
     const [bloodType, setBloodType] = React.useState('A+');
-    const [userName, setUserName] = useState('')
+    const [userName, setUserName] = useState('mariliaxp4')
     const [showDateInput, setShowDateInput] = useState(false);
     const [mode, setMode] = useState('date');
     const [displayDate, setDisplayDate] = useState('');
     const { setToken, setId } = useContext(AuthContext);
-
+    const [loading, setLoading] = useState(false);
 
 
     const navigationScreen = useNavigateToScreen();
 
     const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
 
-    const onChangeDate = (e, selectedDate) => {
+    const onChangeDate = (selectedDate) => {
         setShowDateInput(Platform.OS === 'ios' ? true : false);
+
         if (selectedDate) {
-            setDateOfBirth(selectedDate);
-            setDisplayDate(selectedDate.toLocaleDateString());
+            const dateObject = selectedDate instanceof Date ? selectedDate : new Date(selectedDate);
+
+            const minDate = new Date('1900-01-01');
+            const maxDate = new Date();
+
+            if (dateObject >= minDate && dateObject <= maxDate) {
+                setDateOfBirth(dateObject);
+                setDisplayDate(dateObject.toLocaleDateString());
+            } else {
+                console.log("Data selecionada fora do intervalo permitido.");
+
+            }
         }
     };
     const showMode = (modeToShow) => {
@@ -53,13 +66,14 @@ const SignUpScreen = () => {
     }
 
     function signUp() {
-        api.apiWithoutAuth.post('/account/signup', dados)
-            .then(() => {
-                console.log("Conta criada com sucesso");
-                signin(email, password, setToken, setId, navigationScreen)
-
-            })
-            .catch((err) => console.log(err))
+        console.log(dados)
+         api.apiWithoutAuth.post('/account/signup', dados)
+             .then(() => {
+                 console.log("Conta criada com sucesso");
+                 signIn(dados, setToken, setId, setLoading, navigationScreen)
+ 
+             })
+             .catch((err) => console.log(err))
     }
 
     return (
@@ -80,9 +94,10 @@ const SignUpScreen = () => {
                     {
                         showDateInput && (
                             <DateTimePicker
-                                value={dateOfBirth}
+                                value={dateOfBirth} 
                                 mode={mode}
-                                onChange={onChangeDate}
+                                display="default" 
+                                onChange={(event, selectedDate) => onChangeDate(selectedDate)}
                             />
                         )
                     }
@@ -109,7 +124,7 @@ const SignUpScreen = () => {
                     )}
 
                     <ModalInput placeholder={'Senha'} secureTextEntry={true} value={password} onChangeText={text => setPassword(text)} />
-                    <ModalButton title={'Sign Up'} onPress={signUp} />
+                    <ModalButton title={loading ? (<ActivityIndicator animating={loading} color={MD2Colors.white} />) : "Sign up"} onPress={signUp} />
                 </Animatable.View>
                 <Animatable.View animation="slideInRight" style={styles.containerRedirection}>
                     <Text style={styles.alertLink}>Já possui uma conta?</Text>
