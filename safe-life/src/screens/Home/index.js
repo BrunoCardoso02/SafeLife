@@ -12,7 +12,7 @@ const HomeScreen = () => {
         <View style={styles.container}>
             <Animatable.View animation="slideInDown" style={styles.containerTitle}>
                 <Text style={styles.title}>Welcome to</Text>
-                <Text style={styles.subTitle}>SafeBaby</Text>
+                <Text style={styles.subTitle}>SafeLife</Text>
             </Animatable.View>
             <Animatable.Image animation="fadeInUp" source={require('../../../assets/HomeScreenLogo.png')} resizeMode='contain'/>
             <Animatable.View animation="slideInLeft" style={styles.containerOptions}>
